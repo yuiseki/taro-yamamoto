@@ -18,6 +18,8 @@
       height: 100%;
     }
     body {
+      margin:0;
+      padding:0;
       width: 100%;
       height: 100%;
       background-image: url("https://i.gyazo.com/82a691b8d6856f256c7ac1bf8bb4aa19.jpg");
@@ -33,20 +35,21 @@
       z-index: 1000;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.3);
     }
     iframe {
       z-index: 1;
-      animation: spin 5s infinite;
+      opacity: 0.7;
+      animation: spin 1s infinite;
     }
     @keyframes spin {
-      0%   {transform: scale(0.5, 0.5) rotateY(0deg); transform-origin: center;}  
-      100% {transform: scale(0.5, 0.5) rotateY(360deg); transform-origin: center;}  
+      0%   {transform: scale(0.5, 0.5) rotateX(360deg)  rotateY(-360deg); transform-origin: center;}
+      50%  {transform: scale(0.5, 0.5) rotateX(-360deg) rotateY(360deg);  transform-origin: center;}
+      100% {transform: scale(0.5, 0.5) rotateX(360deg)  rotateY(-360deg); transform-origin: center;}
     }
   </style>
   <script type="text/javascript">
     let pinkShirt = document.getElementById("pink-shirt")
-
   </script>
 </head>
 
@@ -73,6 +76,7 @@
     <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
      class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
   </a>
+  <!-- 左上 -->
   <iframe
     style="position:absolute;top:0;left:0;"
     width="560"
@@ -81,14 +85,16 @@
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
+  <!-- 右中央 -->
   <iframe
-    style="position:absolute;top:0;right:0;"
+    style="position:absolute;top:0;bottom:0;right:0;margin:auto;"
     width="560"
     height="315"
     src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
+  <!-- 上中央 -->
   <iframe
     style="position:absolute;top:0;left:0;right:0;margin:auto;"
     width="560"
@@ -97,14 +103,27 @@
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
+  <!-- 右上 -->
   <iframe
-    style="position:absolute;bottom:0;left:0;right:0;margin:auto;"
+    style="position:absolute;top:0;right:0;"
     width="560"
     height="315"
     src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
+
+  <!-- 中央 -->
+  <iframe
+  style="position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;"
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  ></iframe>
+
+  <!-- 左下 -->
   <iframe
     style="position:absolute;bottom:0;left:0;"
     width="560"
@@ -113,6 +132,25 @@
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
+  <!-- 左中央 -->
+  <iframe
+    style="position:absolute;top:0;bottom:0;left:0;margin:auto;"
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    ></iframe>
+  <!-- 下中央 -->
+  <iframe
+    style="position:absolute;bottom:0;left:0;right:0;margin:auto;"
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    ></iframe>
+  <!-- 左下 -->
   <iframe
     style="position:absolute;bottom:0;right:0;"
     width="560"
