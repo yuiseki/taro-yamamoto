@@ -14,23 +14,29 @@
   <meta name="theme-color" content="#fafafa">
   <style>
     html {
-      width:100%;
-      height:100%;
+      width: 100%;
+      height: 100%;
     }
     body {
-      width:100%;
-      height:100%;
-      background-image:url("https://i.gyazo.com/82a691b8d6856f256c7ac1bf8bb4aa19.jpg");
-      background-size:80px 80px;
+      width: 100%;
+      height: 100%;
+      background-image: url("https://i.gyazo.com/82a691b8d6856f256c7ac1bf8bb4aa19.jpg");
+      background-size: 80px 80px;
+    }
+    div#background {
+      width: 100%;
+      height: 100%;
+      background-image: url("https://i.gyazo.com/50d5fc78d96a973acac6885719fef85c.png");
+      background-size: 80px 80px;
     }
     div#wrap {
-      width:100%;
-      height:100%;
-      background-image:url("https://i.gyazo.com/50d5fc78d96a973acac6885719fef85c.png");
-      background-size:80px 80px;
-
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
     }
     iframe {
+      z-index: 1;
       animation: spin 5s infinite;
     }
     @keyframes spin {
@@ -45,13 +51,14 @@
 </head>
 
 <body>
-  <div id="wrap">
+  <div id="background">
+    <div id="wrap">
 
+    </div>
   <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
 
-  <!-- Add your site or application content here -->
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
@@ -66,8 +73,6 @@
     <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
      class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
   </a>
-
-
   <iframe
     style="position:absolute;top:0;left:0;"
     width="560"
@@ -76,7 +81,6 @@
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
-
   <iframe
     style="position:absolute;top:0;right:0;"
     width="560"
@@ -85,7 +89,6 @@
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
-  
   <iframe
     style="position:absolute;top:0;left:0;right:0;margin:auto;"
     width="560"
@@ -94,7 +97,6 @@
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
-
   <iframe
     style="position:absolute;bottom:0;left:0;right:0;margin:auto;"
     width="560"
@@ -103,7 +105,6 @@
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
-
   <iframe
     style="position:absolute;bottom:0;left:0;"
     width="560"
@@ -112,7 +113,6 @@
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
-
   <iframe
     style="position:absolute;bottom:0;right:0;"
     width="560"
@@ -128,8 +128,8 @@
     ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
   </script>
   <script src="https://www.google-analytics.com/analytics.js" async></script>
-
   </div>
+
 </body>
 
 </html>
