@@ -6,32 +6,47 @@
   <title>山本太郎 非公式サイト</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
-
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
-
   <meta name="theme-color" content="#fafafa">
-
   <style>
+    html {
+      width:100%;
+      height:100%;
+    }
     body {
+      width:100%;
+      height:100%;
       background-image:url("https://i.gyazo.com/82a691b8d6856f256c7ac1bf8bb4aa19.jpg");
       background-size:80px 80px;
+    }
+    div#wrap {
+      width:100%;
+      height:100%;
+      background-image:url("https://i.gyazo.com/50d5fc78d96a973acac6885719fef85c.png");
+      background-size:80px 80px;
+
     }
     iframe {
       animation: spin 5s infinite;
     }
     @keyframes spin {
-      0%   {transform: scale(0.2, 0.2) rotateY(0deg); transform-origin: center;}  
-      100% {transform: scale(0.2, 0.2) rotateY(360deg); transform-origin: center;}  
+      0%   {transform: scale(0.5, 0.5) rotateY(0deg); transform-origin: center;}  
+      100% {transform: scale(0.5, 0.5) rotateY(360deg); transform-origin: center;}  
     }
   </style>
+  <script type="text/javascript">
+    let pinkShirt = document.getElementById("pink-shirt")
+
+  </script>
 </head>
 
 <body>
+  <div id="wrap">
+
   <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
@@ -43,12 +58,12 @@
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
 
-  
+
   <iframe
     style="position:absolute;top:0;left:0;"
     width="560"
     height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?controls=0&autoplay=1"
+    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1"
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
@@ -57,7 +72,7 @@
     style="position:absolute;top:0;right:0;"
     width="560"
     height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?controls=0&autoplay=1&loop=1"
+    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
@@ -66,7 +81,7 @@
     style="position:absolute;top:0;left:0;right:0;margin:auto;"
     width="560"
     height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?controls=0&autoplay=1&loop=1"
+    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
@@ -75,7 +90,7 @@
     style="position:absolute;bottom:0;left:0;right:0;margin:auto;"
     width="560"
     height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?controls=0&autoplay=1&loop=1"
+    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
@@ -84,7 +99,7 @@
     style="position:absolute;bottom:0;left:0;"
     width="560"
     height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?controls=0&autoplay=1&loop=1"
+    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
@@ -93,7 +108,7 @@
     style="position:absolute;bottom:0;right:0;"
     width="560"
     height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?controls=0&autoplay=1&loop=1"
+    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1"
     frameborder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     ></iframe>
@@ -104,6 +119,8 @@
     ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
   </script>
   <script src="https://www.google-analytics.com/analytics.js" async></script>
+
+  </div>
 </body>
 
 </html>
