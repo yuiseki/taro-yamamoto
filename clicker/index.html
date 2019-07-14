@@ -213,9 +213,24 @@
             if (document.readyState === 'complete') fun();
             else window.addEventListener('load', fun, false);
         })(function () {
-
             // onload
-            // mouse move event
+
+            // disable smartphone zoom
+            document.documentElement.addEventListener('touchstart', function (event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                }
+            }, false);
+            var lastTouchEnd = 0;
+            document.documentElement.addEventListener('touchend', function (event) {
+                var now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // set mouse move event
             window.onmousemove = handleMouseMove;
             function handleMouseMove(event) {
                 var mouseWrap = document.getElementById("mouse-element-wrap");
