@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>「参議院議員　山本太郎」アンオフィシャルクリッカー</title>
-    <meta name="description" content="「参議院議員 山本太郎」アンオフィシャルクリッカー. ">
+    <title>山本太郎 非公式投票所</title>
+    <meta name="description" content="山本太郎 非公式投票所">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -96,6 +96,7 @@
             db.collection("clicks").doc("all-click").onSnapshot(function(doc) {
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
                 console.log(source, " data: ", doc.data().count);
+                document.title = "山本太郎 非公式投票所 現在: "+doc.data().count+"票";
             });
 
             firebase.auth().onAuthStateChanged(function(user) {
