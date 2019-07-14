@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title>「参議院議員　山本太郎」アンオフィシャルサイト</title>
+    <meta name="description" content="「参議院議員 山本太郎」アンオフィシャルホームページ. 東京都千代田区永田町2丁目1−1 参議院議員会館302号室">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <meta name="theme-color" content="#fafafa">
+    <style type="text/css">
+        #wrap {
+            width:375px;
+            height:100%;
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            margin:auto;
+        }
+        #ganmen-center-wrap {
+            z-index: 1000;
+            width: 350px;
+            height: 350px;
+            position:absolute;
+            top:250px;
+            left:0;
+            right:0;
+            margin:auto;
+        }
+        #ganmen-center {
+            z-index: 1000;
+            width: 300px;
+            height: 300px;
+            position:absolute;
+            top: 50px;
+            left:0;
+            right:0;
+            margin:auto;
+            cursor: pointer;
+            animation: gatagata 0.5s infinite;
+        }
+        .ganmen-child {
+            width: 50px;
+            height: 50px;
+        }
+        .ganmen-drop {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            animation: drop-scale 5s infinite;
+        }
+        @keyframes gatagata {
+            0%   {transform: scale(1.0, 1.0)  ; transform-origin: center;}
+            50%  {transform: scale(1.1, 1.1)  ; transform-origin: center;}
+            100% {transform: scale(1.0, 1.0)  ; transform-origin: center;}
+        }
+        @keyframes drop-scale {
+            0%   {transform: translateY(0px)  ; }
+            100% {transform: translateY(1000px) ; }
+        }
+    </style>
+    <script type="text/javascript">
+        (function ready(fun) {
+            if (document.readyState === 'complete') fun();
+            else window.addEventListener('load', fun, false);
+        })(function () {
+            var ganmenCenter = document.getElementById("ganmen-center");
+            ganmenCenter.addEventListener("click", (event)=>{
+                var ganmenDrop = document.createElement("img");
+                ganmenDrop.setAttribute("class", "ganmen-drop");
+                ganmenDrop.setAttribute("src", "/ganmen.png");
+                ganmenDrop.style.left = Math.floor(Math.random() * Math.floor(340))+"px";
+                var wrap = document.getElementById("wrap")
+                wrap.appendChild(ganmenDrop);
+            })
+        });
+    </script>
+</head>
+<body id="top">
+    <div id="wrap">
+        <div id="ganmen-center-wrap">
+            <img class="ganmen-child" src="/ganmen.png" />
+            <img class="ganmen-child" src="/ganmen.png" />
+            <img class="ganmen-child" src="/ganmen.png" />
+            <img class="ganmen-child" src="/ganmen.png" />
+            <img class="ganmen-child" src="/ganmen.png" />
+            <img class="ganmen-child" src="/ganmen.png" />
+            <img id="ganmen-center" src="/ganmen.png" />
+        </div>
+    </div>
+</body>
