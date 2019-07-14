@@ -93,10 +93,10 @@
             };
             firebase.initializeApp(firebaseConfig);
             var db = firebase.firestore();
-            if(firebase.auth().currentUser){
-                console.log(firebase.auth().currentUser.uid);
-                console.log(firebase.auth().currentUser.email);
-            }
+            db.collection("clicks").doc("all-click").onSnapshot(function(doc) {
+                var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+                console.log(source, " data: ", doc.data().count);
+            });
 
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
@@ -109,24 +109,31 @@
                         var token = result.credential.accessToken;
                         var user = result.user;
                         email = user.email;
-                        db.collection("users").doc(email).set({
+                        db.collection("users").doc(email).update({
                             count: firebase.firestore.FieldValue.increment(1),
                             timestamp: firebase.firestore.FieldValue.serverTimestamp()
                         });
                     })
                 }
-                console.log(email);
+                if(firebase.auth().currentUser){
+                    console.log(firebase.auth().currentUser.uid);
+                    console.log(firebase.auth().currentUser.email);
+                    db.collection("users").doc(email).update({
+                        count: firebase.firestore.FieldValue.increment(1),
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
             });
 
             var ganmenCenter = document.getElementById("ganmen-center");
             ganmenCenter.addEventListener("click", (event)=>{
 
-                db.collection("users").doc(email).set({
+                db.collection("users").doc(email).update({
                     count: firebase.firestore.FieldValue.increment(1),
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
-                db.collection("clicks").doc("all-click").set({
+                db.collection("clicks").doc("all-click").update({
                     count: firebase.firestore.FieldValue.increment(1),
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
@@ -134,10 +141,7 @@
                 var ganmenDrop = document.createElement("img");
                 ganmenDrop.setAttribute("class", "ganmen-drop");
                 var idx = Math.floor(Math.random() * Math.floor(6));
-                console.log(idx);
-                if(idx==0){
-                    idx = 1;
-                }
+                if(idx==0){ idx = 1; }
                 ganmenDrop.setAttribute("src", "tohyo-youshi-"+idx+".png");
                 ganmenDrop.style.left = (-200+Math.floor(Math.random() * Math.floor(340)))+"px";
                 var wrap = document.getElementById("wrap")
