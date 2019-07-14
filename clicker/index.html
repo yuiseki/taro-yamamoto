@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>山本太郎 非公式投票所</title>
-    <meta name="description" content="山本太郎 非公式投票所">
+    <title></title>
+    <meta name="description" content="山本太郎専用 闇投票所">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -13,13 +13,19 @@
     <meta name="theme-color" content="#fafafa">
     <style type="text/css">
         #wrap {
-            width:375px;
+            width:100%;
             height:100%;
             position:absolute;
             top:0;
             left:0;
             right:0;
             margin:auto;
+        }
+        #mouse-element-wrap {
+            z-index: 200;
+            width: 300px;
+            height: 300px;
+            position: absolute;
         }
         iframe.twitter-share-button {
             z-index: 10;
@@ -30,8 +36,8 @@
             margin:auto;
             transform: scale(3.0, 3.0);
         }
-        #ganmen-center-wrap {
-            z-index: 1000;
+        #center-element-wrap {
+            z-index: 100;
             width: 350px;
             height: 350px;
             position:absolute;
@@ -40,8 +46,8 @@
             right:0;
             margin:auto;
         }
-        #ganmen-center {
-            z-index: 1000;
+        #center-element {
+            z-index: 100;
             width: 262px;
             height: 400px;
             position:absolute;
@@ -52,14 +58,46 @@
             cursor: pointer;
             animation: gatagata 0.5s infinite;
         }
-        .ganmen-child {
-            width: 50px;
-            height: 50px;
+        .counter-element-digit-1 {
+            width: 20px;
+            height: 20px;
         }
-        .ganmen-drop {
+        .counter-element-digit-2 {
+            width: 40px;
+            height: 40px;
+        }
+        .counter-element-digit-3 {
+            width: 80px;
+            height: 80px;
+        }
+        .counter-element-digit-4 {
+            width: 120px;
+            height: 120px;
+        }
+        .counter-element-digit-5 {
+            width: 150px;
+            height: 150px;
+        }
+        .counter-element-digit-6 {
+            width: 180px;
+            height: 180px;
+        }
+        .counter-element-digit-7 {
+            width: 220px;
+            height: 220px;
+        }
+        .counter-element-digit-8 {
+            width: 260px;
+            height: 260px;
+        }
+        .counter-element-digit-9 {
+            width: 300px;
+            height: 300px;
+        }
+        .drop-element {
             position: absolute;
-            width: 381px;
-            height: 578px;
+            width: 190px;
+            height: 289px;
             animation: drop-scale 5s infinite;
         }
         @keyframes gatagata {
@@ -82,6 +120,13 @@
             if (document.readyState === 'complete') fun();
             else window.addEventListener('load', fun, false);
         })(function () {
+            // onload
+            window.onmousemove = handleMouseMove;
+            function handleMouseMove(event) {
+                var mouseWrap = document.getElementById("mouse-element-wrap");
+                mouseWrap.style.left = (event.clientX-150)+"px";
+                mouseWrap.style.top  = (event.clientY+10)+"px";
+            }
             var firebaseConfig = {
                 apiKey: "AIzaSyAd2w0qDlN3Lor-sNd3E0K8pkgsWeD4Tu8",
                 authDomain: "yamamoto-taro-clicker.firebaseapp.com",
@@ -93,12 +138,78 @@
             };
             firebase.initializeApp(firebaseConfig);
             var db = firebase.firestore();
+            // always watch click count
             db.collection("clicks").doc("all-click").onSnapshot(function(doc) {
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-                console.log(source, " data: ", doc.data().count);
-                document.title = "山本太郎 非公式投票所 現在: "+doc.data().count+"票";
+                if(source=="Local")
+                    return;
+                count = doc.data().count;
+                console.log(count);
+
+                // show current count value by ganmen
+                function renderCounterElement(className, digitValue){
+                    var els = document.getElementsByClassName(className);
+                    var current = els.length;
+                    while(current<digitValue){
+                        var counterElement = document.createElement("img");
+                        counterElement.setAttribute("class", className);
+                        counterElement.setAttribute("src", "/ganmen.png");
+                        document.getElementById("mouse-element-wrap").appendChild(counterElement);
+                        current++;
+                    }
+                    var els = document.getElementsByClassName(className);
+                    if(digitValue==0 && els.length!=0){
+                        while(els.length!=0){
+                            els[0].remove();
+                            els = document.getElementsByClassName(className);
+                        }
+                    }
+                }
+                var digit1 = String(count).slice(-1)
+                renderCounterElement("counter-element-digit-1", digit1);
+                var digit2 = String(count).slice(-2, -1)
+                renderCounterElement("counter-element-digit-2", digit2);
+                var digit3 = String(count).slice(-3, -2)
+                renderCounterElement("counter-element-digit-3", digit3);
+                var digit4 = String(count).slice(-4, -3)
+                renderCounterElement("counter-element-digit-4", digit4);
+                var digit5 = String(count).slice(-5, -4)
+                renderCounterElement("counter-element-digit-5", digit5);
+                var digit6 = String(count).slice(-6, -5)
+                renderCounterElement("counter-element-digit-6", digit6);
+                var digit7 = String(count).slice(-7, -6)
+                renderCounterElement("counter-element-digit-7", digit7);
+                var digit8 = String(count).slice(-8, -7)
+                renderCounterElement("counter-element-digit-8", digit8);
+                var digit9 = String(count).slice(-9, -8)
+                renderCounterElement("counter-element-digit-9", digit9);
+
+                // drop random tohyo youshi
+                var dropElement = document.createElement("img");
+                dropElement.setAttribute("class", "drop-element");
+                var idx = Math.floor(Math.random() * Math.floor(6));
+                if(idx==0){ idx = 1; }
+                dropElement.setAttribute("src", "tohyo-youshi-"+idx+".png");
+                dropElement.style.left = (Math.floor(Math.random() * Math.floor(100)))+"%";
+                document.getElementById("wrap").appendChild(dropElement);
+                // update title
+                document.title = "山本太郎専用 闇投票所 現在: "+count+"票";
+                // update tweet button
+                var currentShareButton = document.getElementById("twitter-share-button");
+                if(currentShareButton){
+                    currentShareButton.parentNode.removeChild(currentShareButton);
+                }
+                var shareButton = document.createElement("a");
+                shareButton.setAttribute("href", "https://twitter.com/share?ref_src=twsrc%5Etfw");
+                shareButton.setAttribute("id", "twitter-share-button");
+                shareButton.setAttribute("class", "twitter-share-button");
+                shareButton.setAttribute("data-size", "large");
+                shareButton.setAttribute("data-text", document.title);
+                document.getElementById("wrap").appendChild(shareButton);
+                twttr.widgets.load();
             });
 
+            // authentication by google
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     email = user.email;
@@ -117,8 +228,6 @@
                     })
                 }
                 if(firebase.auth().currentUser){
-                    console.log(firebase.auth().currentUser.uid);
-                    console.log(firebase.auth().currentUser.email);
                     db.collection("users").doc(email).update({
                         count: firebase.firestore.FieldValue.increment(1),
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -126,49 +235,26 @@
                 }
             });
 
-            var ganmenCenter = document.getElementById("ganmen-center");
-            ganmenCenter.addEventListener("click", (event)=>{
-
+            var centerElement = document.getElementById("center-element");
+            centerElement.addEventListener("click", (event)=>{
                 db.collection("users").doc(email).update({
                     count: firebase.firestore.FieldValue.increment(1),
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
-
                 db.collection("clicks").doc("all-click").update({
                     count: firebase.firestore.FieldValue.increment(1),
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
-
-                var ganmenDrop = document.createElement("img");
-                ganmenDrop.setAttribute("class", "ganmen-drop");
-                var idx = Math.floor(Math.random() * Math.floor(6));
-                if(idx==0){ idx = 1; }
-                ganmenDrop.setAttribute("src", "tohyo-youshi-"+idx+".png");
-                ganmenDrop.style.left = (-200+Math.floor(Math.random() * Math.floor(340)))+"px";
-                var wrap = document.getElementById("wrap")
-                wrap.appendChild(ganmenDrop);
             });
         });
     </script>
 </head>
 <body id="top">
     <div id="wrap">
-        <a
-            href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
-            class="twitter-share-button" 
-            data-size="large"
-            data-show-count="false"
-        >
-            Tweet
-        </a>
-        <div id="ganmen-center-wrap">
-            <img class="ganmen-child" src="/ganmen.png" />
-            <img class="ganmen-child" src="/ganmen.png" />
-            <img class="ganmen-child" src="/ganmen.png" />
-            <img class="ganmen-child" src="/ganmen.png" />
-            <img class="ganmen-child" src="/ganmen.png" />
-            <img class="ganmen-child" src="/ganmen.png" />
-            <img id="ganmen-center" src="tohyo-bako.png" />
+        <div id="center-element-wrap">
+            <img id="center-element" src="tohyo-bako.png" />
+        </div>
+        <div id="mouse-element-wrap">
         </div>
     </div>
 </body>
