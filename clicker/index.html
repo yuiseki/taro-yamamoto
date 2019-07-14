@@ -72,13 +72,60 @@
             100% {transform: translateY(800px) ; }
         }
     </style>
-    <script type="text/javascript">
+    <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/5.10.1/firebase-firestore.js"></script>
+    <script defer type="text/javascript">
+        var email;
         (function ready(fun) {
             if (document.readyState === 'complete') fun();
             else window.addEventListener('load', fun, false);
         })(function () {
+            var firebaseConfig = {
+                apiKey: "AIzaSyAd2w0qDlN3Lor-sNd3E0K8pkgsWeD4Tu8",
+                authDomain: "yamamoto-taro-clicker.firebaseapp.com",
+                databaseURL: "https://yamamoto-taro-clicker.firebaseio.com",
+                projectId: "yamamoto-taro-clicker",
+                storageBucket: "",
+                messagingSenderId: "264318415592",
+                appId: "1:264318415592:web:4a1e70f67cc03c69"
+            };
+            firebase.initializeApp(firebaseConfig);
+            console.log(firebase);
+            var db = firebase.firestore();
+            console.log(db);
+
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    email = user.email;
+                } else {
+                    var googleProvider = new firebase.auth.GoogleAuthProvider();
+                    googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+                    firebase.auth().useDeviceLanguage();
+                    firebase.auth().signInWithPopup(googleProvider).then(function(result) {
+                        var token = result.credential.accessToken;
+                        var user = result.user;
+                        email = user.email;1
+                    }).catch(function(error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        var credential = error.credential;
+                    });
+                }
+            });
+
             var ganmenCenter = document.getElementById("ganmen-center");
             ganmenCenter.addEventListener("click", (event)=>{
+                db.collection("users").doc(email).set({
+                    count: firebase.firestore.FieldValue.increment(1),
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                db.collection("click").doc("all-click").set({
+                    count: firebase.firestore.FieldValue.increment(1),
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
                 var ganmenDrop = document.createElement("img");
                 ganmenDrop.setAttribute("class", "ganmen-drop");
                 var idx = Math.floor(Math.random() * Math.floor(6));
@@ -90,12 +137,11 @@
                 ganmenDrop.style.left = (-200+Math.floor(Math.random() * Math.floor(340)))+"px";
                 var wrap = document.getElementById("wrap")
                 wrap.appendChild(ganmenDrop);
-            })
+            });
         });
     </script>
 </head>
 <body id="top">
-    <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <div id="wrap">
         <a
             href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
