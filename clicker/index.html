@@ -106,13 +106,18 @@
                     firebase.auth().signInWithPopup(googleProvider).then(function(result) {
                         var token = result.credential.accessToken;
                         var user = result.user;
-                        email = user.email;1
+                        email = user.email;
+                        db.collection("users").doc(email).set({
+                            count: firebase.firestore.FieldValue.increment(1),
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        });
                     }).catch(function(error) {
                         var errorCode = error.code;
                         var errorMessage = error.message;
                         var credential = error.credential;
                     });
                 }
+                console.log(email);
             });
 
             var ganmenCenter = document.getElementById("ganmen-center");
