@@ -12,6 +12,16 @@
     <link rel="stylesheet" href="/css/main.css">
     <meta name="theme-color" content="#fafafa">
     <style type="text/css">
+    @media screen and (max-width:480px){
+        iframe.twitter-share-button {
+            z-index: 10;
+            position:absolute !important;
+            top:100px;
+            left:0;
+            right:0;
+            margin:auto;
+            transform: scale(2.0, 2.0);
+        }
         #wrap {
             width:100%;
             height:100%;
@@ -21,12 +31,88 @@
             right:0;
             margin:auto;
         }
+        #center-element-wrap {
+            z-index: 100;
+            width: 250px;
+            height: 250px;
+            position:absolute;
+            top:250px;
+            left:0;
+            right:0;
+            margin:auto;
+        }
+        #center-element {
+            z-index: 100;
+            width: 131px;
+            height: 200px;
+            position:absolute;
+            top: 0;
+            left:0;
+            right:0;
+            margin:auto;
+            cursor: pointer;
+            animation: gatagata 0.5s infinite;
+        }
         #mouse-element-wrap {
             z-index: 200;
+            width: 1px;
+            height: 1px;
+            position: absolute;
+            transform: scale(0.5, 0.5);
+        }
+        .counter-element-digit-1 {
+            width: 20px;
+            height: 20px;
+        }
+        .counter-element-digit-2 {
+            width: 40px;
+            height: 40px;
+        }
+        .counter-element-digit-3 {
+            width: 80px;
+            height: 80px;
+        }
+        .counter-element-digit-4 {
+            width: 120px;
+            height: 120px;
+        }
+        .counter-element-digit-5 {
+            width: 150px;
+            height: 150px;
+        }
+        .counter-element-digit-6 {
+            width: 180px;
+            height: 180px;
+        }
+        .counter-element-digit-7 {
+            width: 220px;
+            height: 220px;
+        }
+        .counter-element-digit-8 {
+            width: 260px;
+            height: 260px;
+        }
+        .counter-element-digit-9 {
             width: 300px;
             height: 300px;
-            position: absolute;
         }
+        .drop-element {
+            position: absolute;
+            width: 95px;
+            height: 144px;
+            animation: drop-scale 5s infinite;
+        }
+        @keyframes gatagata {
+            0%   {transform: scale(1.0, 1.0)  ; transform-origin: center;}
+            50%  {transform: scale(1.1, 1.1)  ; transform-origin: center;}
+            100% {transform: scale(1.0, 1.0)  ; transform-origin: center;}
+        }
+        @keyframes drop-scale {
+            0%   {transform: translateY(0px)  ; }
+            100% {transform: translateY(800px) ; }
+        }
+    }
+    @media screen and (min-width:500px){
         iframe.twitter-share-button {
             z-index: 10;
             position:absolute !important;
@@ -57,6 +143,12 @@
             margin:auto;
             cursor: pointer;
             animation: gatagata 0.5s infinite;
+        }
+        #mouse-element-wrap {
+            z-index: 200;
+            width: 300px;
+            height: 300px;
+            position: absolute;
         }
         .counter-element-digit-1 {
             width: 20px;
@@ -109,6 +201,7 @@
             0%   {transform: translateY(0px)  ; }
             100% {transform: translateY(800px) ; }
         }
+    }
     </style>
     <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script defer src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
@@ -121,12 +214,15 @@
             else window.addEventListener('load', fun, false);
         })(function () {
             // onload
+            // mouse move event
             window.onmousemove = handleMouseMove;
             function handleMouseMove(event) {
                 var mouseWrap = document.getElementById("mouse-element-wrap");
-                mouseWrap.style.left = (event.clientX-150)+"px";
-                mouseWrap.style.top  = (event.clientY+10)+"px";
+                mouseWrap.style.left = (event.clientX-100)+"px";
+                mouseWrap.style.top  = (event.clientY-300)+"px";
             }
+
+            // firebase config
             var firebaseConfig = {
                 apiKey: "AIzaSyAd2w0qDlN3Lor-sNd3E0K8pkgsWeD4Tu8",
                 authDomain: "yamamoto-taro-clicker.firebaseapp.com",
@@ -138,6 +234,7 @@
             };
             firebase.initializeApp(firebaseConfig);
             var db = firebase.firestore();
+
             // always watch click count
             db.collection("clicks").doc("all-click").onSnapshot(function(doc) {
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
@@ -152,7 +249,7 @@
                         var counterElement = document.createElement("img");
                         counterElement.setAttribute("class", className);
                         counterElement.setAttribute("src", "/ganmen.png");
-                        document.getElementById("mouse-element-wrap").appendChild(counterElement);
+                        document.getElementById(className+"-wrap").appendChild(counterElement);
                         current++;
                     }
                     var els = document.getElementsByClassName(className);
@@ -190,8 +287,10 @@
                 dropElement.setAttribute("src", "tohyo-youshi-"+idx+".png");
                 dropElement.style.left = (Math.floor(Math.random() * Math.floor(100)))+"%";
                 document.getElementById("wrap").appendChild(dropElement);
+
                 // update title
                 document.title = "山本太郎専用 闇投票所 現在: "+count+"票";
+
                 // update tweet button
                 var currentShareButton = document.getElementById("twitter-share-button");
                 if(currentShareButton){
@@ -205,6 +304,7 @@
                 shareButton.setAttribute("data-text", document.title);
                 document.getElementById("wrap").appendChild(shareButton);
                 twttr.widgets.load();
+
             });
 
             // authentication by google
@@ -249,6 +349,15 @@
 </head>
 <body id="top">
     <div id="wrap">
+        <div id="counter-element-digit-9-wrap">100,000,000</div>
+        <div id="counter-element-digit-8-wrap">10,000,000</div>
+        <div id="counter-element-digit-7-wrap">1,000,000</div>
+        <div id="counter-element-digit-6-wrap">100,000</div>
+        <div id="counter-element-digit-5-wrap">10,000</div>
+        <div id="counter-element-digit-4-wrap">1,000</div>
+        <div id="counter-element-digit-3-wrap">100</div>
+        <div id="counter-element-digit-2-wrap">10</div>
+        <div id="counter-element-digit-1-wrap">1</div>
         <div id="center-element-wrap">
             <img id="center-element" src="tohyo-bako.png" />
         </div>
