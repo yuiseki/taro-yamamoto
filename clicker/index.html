@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="山本太郎専用 闇投票所">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="apple-touch-icon" href="/icon.png">
     <link rel="stylesheet" href="/css/normalize.css">
@@ -20,7 +20,7 @@
             left:0;
             right:0;
             margin:auto;
-            transform: scale(2.0, 2.0);
+            transform: scale(1.0, 1.0);
         }
         #wrap {
             width:100%;
@@ -61,40 +61,40 @@
             transform: scale(0.5, 0.5);
         }
         .counter-element-digit-1 {
+            width: 10px;
+            height: 10px;
+        }
+        .counter-element-digit-2 {
             width: 20px;
             height: 20px;
         }
-        .counter-element-digit-2 {
+        .counter-element-digit-3 {
+            width: 30px;
+            height: 30px;
+        }
+        .counter-element-digit-4 {
             width: 40px;
             height: 40px;
         }
-        .counter-element-digit-3 {
+        .counter-element-digit-5 {
+            width: 50px;
+            height: 50px;
+        }
+        .counter-element-digit-6 {
+            width: 60px;
+            height: 60px;
+        }
+        .counter-element-digit-7 {
+            width: 70px;
+            height: 70px;
+        }
+        .counter-element-digit-8 {
             width: 80px;
             height: 80px;
         }
-        .counter-element-digit-4 {
-            width: 120px;
-            height: 120px;
-        }
-        .counter-element-digit-5 {
-            width: 150px;
-            height: 150px;
-        }
-        .counter-element-digit-6 {
-            width: 180px;
-            height: 180px;
-        }
-        .counter-element-digit-7 {
-            width: 220px;
-            height: 220px;
-        }
-        .counter-element-digit-8 {
-            width: 260px;
-            height: 260px;
-        }
         .counter-element-digit-9 {
-            width: 300px;
-            height: 300px;
+            width: 90px;
+            height: 90px;
         }
         .drop-element {
             position: absolute;
@@ -213,6 +213,7 @@
             if (document.readyState === 'complete') fun();
             else window.addEventListener('load', fun, false);
         })(function () {
+
             // onload
             // mouse move event
             window.onmousemove = handleMouseMove;
@@ -292,9 +293,12 @@
                 document.title = "山本太郎専用 闇投票所 現在: "+count+"票";
 
                 // update tweet button
-                var currentShareButton = document.getElementById("twitter-share-button");
-                if(currentShareButton){
-                    currentShareButton.parentNode.removeChild(currentShareButton);
+                var els = document.getElementsByClassName("twitter-share-button");
+                if(els.length!=0){
+                    while(els.length!=0){
+                        els[0].remove();
+                        els = document.getElementsByClassName("twitter-share-button");
+                    }
                 }
                 var shareButton = document.createElement("a");
                 shareButton.setAttribute("href", "https://twitter.com/share?ref_src=twsrc%5Etfw");
@@ -315,7 +319,7 @@
                     var googleProvider = new firebase.auth.GoogleAuthProvider();
                     googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
                     firebase.auth().useDeviceLanguage();
-                    firebase.auth().signInWithPopup(googleProvider).then(function(result) {
+                    firebase.auth().signInWithRedirect(googleProvider).then(function(result) {
                         var token = result.credential.accessToken;
                         var user = result.user;
                         email = user.email;
