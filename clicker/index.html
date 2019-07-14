@@ -141,8 +141,6 @@
             // always watch click count
             db.collection("clicks").doc("all-click").onSnapshot(function(doc) {
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-                if(source=="Local")
-                    return;
                 count = doc.data().count;
                 console.log(count);
 
