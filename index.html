@@ -26,44 +26,58 @@
       background-size: 80px 80px;
     }
     div#background {
-      position: absolute;
+      z-index: -1;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background-image: url("https://i.gyazo.com/50d5fc78d96a973acac6885719fef85c.png");
       background-size: 80px 80px;
+      background-color: rgba(0, 0, 0, 0.5);
     }
-    div#wrap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.3);
-    }
-    iframe#twitter-widget-0 {
-      position:absolute !important;
-      top:0;
-      bottom:0;
-      left:0;
-      right:0;
-      margin:auto;
-      transform: scale(3.0, 3.0);
+    img.ganmen {
+      z-index: 1;
+      animation: rotate 1s infinite;
     }
     iframe.youtube {
-      z-index: 1;
       opacity: 0.7;
       animation: spin 5s infinite;
     }
-    img.ganmen {
-      animation: rotate 1s infinite;
+    div#wrap {
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+    }
+    iframe.twitter-share-button {
+      z-index: 10;
+      position:absolute !important;
+      top:100px;
+      left:0;
+      right:0;
+      margin:auto;
+      animation: gatagata-scale 0.1s infinite;
+    }
+    iframe.twitter-timeline {
+      z-index: -1;
+      width: 40% !important;
+      max-height: 8000px !important;
+      position: absolute !important;
+      top: 250px;
+      left:0;
+      right:0;
+      margin:auto;
+      transform: scale(1.0, 1.0);
     }
     @keyframes rotate {
       0%   {transform: rotateZ(360deg)  ; transform-origin: center;}
       50%  {transform: rotateZ(-360deg) ; transform-origin: center;}
       100% {transform: rotateZ(360deg)  ; transform-origin: center;}
+    }
+    @keyframes gatagata-scale {
+      0%   {transform: scale(3.0, 3.0) translate(-1,-1) ; transform-origin: center;}
+      50%  {transform: scale(3.0, 3.0) translate( 0, 0) ; transform-origin: center;}
+      100% {transform: scale(3.0, 3.0) translate( 1, 1) ; transform-origin: center;}
     }
     @keyframes spin {
       0%   {transform: scale(0.5, 0.5) rotateX(360deg)  rotateY(-360deg) rotateZ(360deg) ; transform-origin: center;}
@@ -92,37 +106,10 @@
   </script>
 </head>
 
-<body>
-  <div id="background">
-    <img id="ganmen1" class="ganmen" width="100" height="100" src="ganmen.png" style="position:absolute;" />
-    <img id="ganmen2" class="ganmen" width="100" height="100" src="ganmen.png" style="position:absolute;" />
-    <img id="ganmen3" class="ganmen" width="100" height="100" src="ganmen.png" style="position:absolute;" />
-    <img id="ganmen4" class="ganmen" width="100" height="100" src="ganmen.png" style="position:absolute;" />
-    <div id="wrap">
-      <!-- 左上 -->
-      <a href="https://github.com/yuiseki/taro-yamamoto" style="float:left;">
-        <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149"
-         class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
-      </a>
-      <!-- 右上 -->
-      <a href="https://github.com/yuiseki/taro-yamamoto" style="float:right;">
-        <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
-         class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
-      </a>
-      <!-- 中央 -->
-      <a 
-      href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
-      class="twitter-share-button" 
-      data-size="large"
-      data-show-count="false"
-      >
-      Tweet
-      </a>
-    </div>
+<body id="top">
   <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
-
   <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -130,95 +117,109 @@
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- 左上 -->
-  <iframe
-    class="youtube"
-    style="position:absolute;top:0;left:0;"
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    ></iframe>
-  <!-- 右中央 -->
-  <iframe
-    class="youtube"
-    style="position:absolute;top:0;bottom:0;right:0;margin:auto;"
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    ></iframe>
-  <!-- 上中央 -->
-  <iframe
-    class="youtube"
-    style="position:absolute;top:0;left:0;right:0;margin:auto;"
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    ></iframe>
-  <!-- 右上 -->
-  <iframe
-    class="youtube"
-    style="position:absolute;top:0;right:0;"
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    ></iframe>
-
-  <!-- 左下 -->
-  <iframe
-    class="youtube"
-    style="position:absolute;bottom:0;left:0;"
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    ></iframe>
-  <!-- 左中央 -->
-  <iframe
-    class="youtube"
-    style="position:absolute;top:0;bottom:0;left:0;margin:auto;"
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    ></iframe>
-  <!-- 下中央 -->
-  <iframe
-    class="youtube"
-    style="position:absolute;bottom:0;left:0;right:0;margin:auto;"
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    ></iframe>
-  <!-- 左下 -->
-  <iframe
-    class="youtube"
-    style="position:absolute;bottom:0;right:0;"
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    ></iframe>
-
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
+  <div id="background">
+    <!-- 左上 -->
+    <iframe
+      class="youtube"
+      style="position: fixed;;top:0;left:0;"
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      ></iframe>
+    <!-- 右中央 -->
+    <iframe
+      class="youtube"
+      style="position:fixed;top:0;bottom:0;right:0;margin:auto;"
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      ></iframe>
+    <!-- 右上 -->
+    <iframe
+      class="youtube"
+      style="position:fixed;top:0;right:0;"
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      ></iframe>
+    <!-- 左下 -->
+    <iframe
+      class="youtube"
+      style="position:fixed;bottom:0;left:0;"
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      ></iframe>
+    <!-- 左中央 -->
+    <iframe
+      class="youtube"
+      style="position:fixed;top:0;bottom:0;left:0;margin:auto;"
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      ></iframe>
+    <!-- 左下 -->
+    <iframe
+      class="youtube"
+      style="position:fixed;bottom:0;right:0;"
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/V9zvlpOE1TA?rel=0&controls=0&autoplay=1&loop=1&muted=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      ></iframe>
   </div>
+
+  <div id="wrap">
+    <div>
+      <img id="ganmen1" class="ganmen" width="100" height="100" src="ganmen.png" style="position:absolute;" />
+      <img id="ganmen2" class="ganmen" width="100" height="100" src="ganmen.png" style="position:absolute;" />
+      <img id="ganmen3" class="ganmen" width="100" height="100" src="ganmen.png" style="position:absolute;" />
+      <img id="ganmen4" class="ganmen" width="100" height="100" src="ganmen.png" style="position:absolute;" />
+    </div>
+    <!-- 左上 -->
+    <a href="https://github.com/yuiseki/taro-yamamoto" style="position:fixed;top:0;left:0;">
+      <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149"
+        class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
+    </a>
+    <!-- 右上 -->
+    <a href="https://github.com/yuiseki/taro-yamamoto" style="position:fixed;top:0;right:0;">
+      <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
+        class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
+    </a>
+    <!-- 中央 -->
+    <a
+      href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
+      class="twitter-share-button" 
+      data-size="large"
+      data-show-count="false"
+    >
+      Tweet
+    </a>
+    <!-- 中央 -->
+    <a
+      class="twitter-timeline"
+      href="https://twitter.com/yamamototaro0?ref_src=twsrc%5Etfw"
+    >
+      Tweets by yamamototaro0
+    </a>
+    <!-- 右下 -->
+    <a href="#top" width="200" height="200" style="display: block; position: fixed; bottom: 0; right: -50px;" >
+      <img id="zenshin" width="200" height="200" src="https://i.gyazo.com/117cfc8dbb45310f9653e117cd48d90b.png" />
+    </a>
+  </div>
+
+
 
 </body>
 
