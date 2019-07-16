@@ -1,0 +1,35 @@
+// 20190715104059
+// https://raw.githubusercontent.com/GoogleCloudPlatform/nodejs-docs-samples/master/functions/imagemagick/package.json
+
+{
+    "name": "nodejs-docs-samples-functions-imagemagick",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "author": "Google Inc.",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git"
+    },
+    "engines": {
+      "node": ">=8.0.0"
+    },
+    "scripts": {
+      "test": "mocha test/*.test.js --timeout=20000"
+    },
+    "dependencies": {
+      "@google-cloud/storage": "^3.0.0",
+      "@google-cloud/vision": "^0.25.0",
+      "gm": "^1.23.1"
+    },
+    "devDependencies": {
+      "@google-cloud/nodejs-repo-tools": "^3.3.0",
+      "mocha": "^6.0.0",
+      "proxyquire": "^2.1.0",
+      "sinon": "^7.0.0"
+    },
+    "cloud-repo-tools": {
+      "requiresKeyFile": true,
+      "requiresProjectId": true
+    }
+  }

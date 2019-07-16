@@ -215,7 +215,7 @@
         })(function () {
             // onload
 
-            // disable smartphone zoom
+            // スマホでタップ連打したときにズームされるのを防ぐ処理
             document.documentElement.addEventListener('touchstart', function (event) {
                 if (event.touches.length > 1) {
                     event.preventDefault();
@@ -230,15 +230,15 @@
                 lastTouchEnd = now;
             }, false);
 
-            // set mouse move event
+            // マウスが動いた時にマウスに追随させる処理
             window.onmousemove = handleMouseMove;
             function handleMouseMove(event) {
                 var mouseWrap = document.getElementById("mouse-element-wrap");
                 mouseWrap.style.left = (event.clientX-100)+"px";
                 mouseWrap.style.top  = (event.clientY-300)+"px";
-            }
+            };
 
-            // firebase config
+            // Firebase SDK の設定
             var firebaseConfig = {
                 apiKey: "AIzaSyAd2w0qDlN3Lor-sNd3E0K8pkgsWeD4Tu8",
                 authDomain: "yamamoto-taro-clicker.firebaseapp.com",
@@ -248,16 +248,56 @@
                 messagingSenderId: "264318415592",
                 appId: "1:264318415592:web:4a1e70f67cc03c69"
             };
+            // Firebase SDK の初期化
             firebase.initializeApp(firebaseConfig);
+            // Firebase Firestore (データベース) の初期化
             var db = firebase.firestore();
 
-            // always watch click count
+            // clicks コレクションの all-click ドキュメントの変更を監視する
             db.collection("clicks").doc("all-click").onSnapshot(function(doc) {
+                // ブラウザ側から飛ばそうとしている更新か、サーバー側から降ってきた更新か
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-                count = doc.data().count;
+
+                // 現在の総クリック数
+                var count = doc.data().count;
                 console.log(count);
 
-                // show current count value by ganmen
+                // タイトルを更新する
+                document.title = "山本太郎専用 闇投票所 現在: "+count+"票";
+
+                var digit1 = String(count).slice(-1);
+                var digit2 = String(count).slice(-2, -1);
+                if(digit1==0){
+                    // ツイートボタンを更新する処理
+                    // いまあるツイートボタンを全部消す
+                    var els = document.getElementsByClassName("twitter-share-button");
+                    if(els.length!=0){
+                        while(els.length!=0){
+                            els[0].remove();
+                            els = document.getElementsByClassName("twitter-share-button");
+                        }
+                    }
+                    // 新しいツイートボタンを生成する
+                    var shareButton = document.createElement("a");
+                    shareButton.setAttribute("href", "https://twitter.com/share?ref_src=twsrc%5Etfw");
+                    shareButton.setAttribute("id", "twitter-share-button");
+                    shareButton.setAttribute("class", "twitter-share-button");
+                    shareButton.setAttribute("data-size", "large");
+                    shareButton.setAttribute("data-text", document.title);
+                    document.getElementById("wrap").appendChild(shareButton);
+                    // これを呼ぶことでツイートボタンになる
+                    twttr.widgets.load();
+                }
+
+                // 更新されるたびにランダムな位置にランダムな投票用紙画像を降らせる処理
+                var dropElement = document.createElement("img");
+                dropElement.setAttribute("class", "drop-element");
+                var idx = 1+Math.floor(Math.random() * Math.floor(5));
+                dropElement.setAttribute("src", "tohyo-youshi-"+idx+".png");
+                dropElement.style.left = -20+(Math.floor(Math.random() * Math.floor(120)))+"%";
+                document.getElementById("wrap").appendChild(dropElement);
+
+                // N桁目の数を山本太郎の画面の数で表すカウンタの更新処理
                 function renderCounterElement(className, digitValue){
                     var els = document.getElementsByClassName(className);
                     var current = els.length;
@@ -276,9 +316,7 @@
                         }
                     }
                 }
-                var digit1 = String(count).slice(-1)
                 renderCounterElement("counter-element-digit-1", digit1);
-                var digit2 = String(count).slice(-2, -1)
                 renderCounterElement("counter-element-digit-2", digit2);
                 var digit3 = String(count).slice(-3, -2)
                 renderCounterElement("counter-element-digit-3", digit3);
@@ -294,35 +332,6 @@
                 renderCounterElement("counter-element-digit-8", digit8);
                 var digit9 = String(count).slice(-9, -8)
                 renderCounterElement("counter-element-digit-9", digit9);
-
-                // drop random tohyo youshi
-                var dropElement = document.createElement("img");
-                dropElement.setAttribute("class", "drop-element");
-                var idx = Math.floor(Math.random() * Math.floor(6));
-                if(idx==0){ idx = 1; }
-                dropElement.setAttribute("src", "tohyo-youshi-"+idx+".png");
-                dropElement.style.left = (Math.floor(Math.random() * Math.floor(100)))+"%";
-                document.getElementById("wrap").appendChild(dropElement);
-
-                // update title
-                document.title = "山本太郎専用 闇投票所 現在: "+count+"票";
-
-                // update tweet button
-                var els = document.getElementsByClassName("twitter-share-button");
-                if(els.length!=0){
-                    while(els.length!=0){
-                        els[0].remove();
-                        els = document.getElementsByClassName("twitter-share-button");
-                    }
-                }
-                var shareButton = document.createElement("a");
-                shareButton.setAttribute("href", "https://twitter.com/share?ref_src=twsrc%5Etfw");
-                shareButton.setAttribute("id", "twitter-share-button");
-                shareButton.setAttribute("class", "twitter-share-button");
-                shareButton.setAttribute("data-size", "large");
-                shareButton.setAttribute("data-text", document.title);
-                document.getElementById("wrap").appendChild(shareButton);
-                twttr.widgets.load();
 
             });
 
