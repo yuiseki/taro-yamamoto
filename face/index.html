@@ -10,6 +10,23 @@
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/main.css">
     <meta name="theme-color" content="#fafafa">
+    <style type="text/css">
+        iframe.twitter-share-button {
+        z-index: 10;
+        position:absolute !important;
+        top:100px;
+        left:0;
+        right:0;
+        margin:auto;
+        animation: gatagata-scale 0.1s infinite;
+      }
+      @keyframes gatagata-scale {
+      0%   {transform: scale(3.0, 3.0) translate(-1,-1) ; transform-origin: center;}
+      50%  {transform: scale(3.0, 3.0) translate( 0, 0) ; transform-origin: center;}
+      100% {transform: scale(3.0, 3.0) translate( 1, 1) ; transform-origin: center;}
+    }
+    </style>
+
     <script src="/processing.js"></script> 
     <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script defer type="text/javascript">
@@ -17,6 +34,14 @@
 </head>
 <body id="top">
     <div id="wrap">
+        <a
+          href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
+          class="twitter-share-button" 
+          data-size="large"
+          data-show-count="false"
+        >
+        Tweet
+        </a>
         <canvas data-processing-sources="face/face.pde"></canvas>
     </div>
 </body>
